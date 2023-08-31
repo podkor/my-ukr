@@ -1,0 +1,74 @@
+#homeHeader {
+    margin: 30px;
+    float: left;
+}
+#logoHeader {
+    background-color: #00B48B;
+    color: #e6ffe6;
+    text-align: center;
+    height: 120px;
+    font-size: 100px;
+}
+#logInUser {
+    margin: 40px;
+    color: #f8c404;
+    float: right;
+    font-size: 20px;
+}
+
+#dataPanel {
+    background-color: #e6ffe6;
+    padding-left: 120px;
+}
+
+#adminPanel {
+    height: 50px;
+    background-color: #00B48B;
+    color: #e6ffe6;
+}
+
+.dataTab {
+    padding: 10px;
+    border-radius: 50px;
+    display: block;
+    float: left;
+    position: relative;
+
+}
+
+.tabDiv {
+    border: 2px outset #00B48B;
+    background-color: #e6ffe6;
+    text-align: center;
+    height: 800px;
+    width: 400px;
+    font-size: 12px;
+    overflow-y:auto;
+    float: left;
+}
+#ukrainePremiereLiagueTable {
+    font-size: 16px;
+}
+#liveMatch {
+    height: 480px;
+    width: 700px;
+}
+
+.categories {
+    width: 120px;
+    float: left;
+}
+.categories a {
+    background-color: #e6ffe6;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+.categories a:hover {
+    background-color: #00B48B;
+}
+.categories a.active {
+    background-color: #339966;
+    color: white;
+}
