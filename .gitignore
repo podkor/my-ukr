@@ -1,0 +1,9 @@
+/.idea/sonarlint/
+/.idea/.gitignore
+/.idea/checkstyle-idea.xml
+/.idea/jsLibraryMappings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/node_modules/
