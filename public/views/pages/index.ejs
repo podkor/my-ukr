@@ -1,0 +1,42 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Ukr Dashboard</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+</head>
+<body>
+<div>
+    <div id="homeHeader">
+        <a href="/app" title="Home">
+            <img height="50px" src="https://toppng.com/uploads/preview/hombutton-white-home-button-11563211148zdfdwfoi16.png" />
+        </a>
+    </div>
+    <div id="logoHeader">Ukr Dashboard
+        <div id="logInUser">
+
+            <div>
+                <a href="/app/login">Log in</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="categories">
+    <a href="?category=football" >Football</a>
+    <a href="?category=war" class="active">War</a>
+    <a href="?category=ukraine" >Ukraine</a>
+    <a href="?category=history" >History</a>
+    <a href="?category=news" >News</a>
+    <a href="?category=music" >Music</a>
+    <a href="?category=finance" >Finance</a>
+</div>
+
+<div id="dataPanel">
+    <%- dataTabs %>
+</div>
+
+</body>
+</html>
