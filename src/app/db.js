@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 require('dotenv').config({
-    path: __dirname + '/../environments/' + process.env.NODE_ENV + '.env'
+    path: __dirname + `/../environments/${process.env.NODE_ENV}.env`
 });
 
 const connection = mysql.createPool({

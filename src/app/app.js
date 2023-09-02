@@ -25,7 +25,7 @@ app.get("/app", (req, res) => {
     const category = req.query.category || 'war';
     const sql = "SELECT html_data FROM data_tab where category = ?";
 
-    db.connection.query(sql, [category],function (err, result) {
+    db.connection.query(sql, [category], function (err, result) {
         if (err) {
             throw err;
         }
@@ -36,9 +36,48 @@ app.get("/app", (req, res) => {
             dataTabs += v['html_data'];
         });
 
-        res.render('pages/index.ejs', {dataTabs: dataTabs});
+        res.render('pages/index.ejs', {
+            categories: createCategoriesMenuDiv(category),
+            dataTabs: dataTabs
+        });
     });
+
 });
+
+const categories = ["FOOTBALL",
+    "WAR",
+    "UKRAINE",
+    "HISTORY",
+    "NEWS",
+    "MUSIC",
+    "FINANCE"];
+//
+// function getCategories(cb) {
+//     const sql = "SELECT category FROM data_tab";
+//     db.connection.query(sql, [], function (err, result) {
+//         if (err) {
+//             throw err;
+//         }
+//         console.log( Object.values(JSON.parse(JSON.stringify(result)))['category']);
+//
+//         cb( result);
+//     });
+// }
+
+function createCategoriesMenuDiv(activeCategory) {
+    return categories
+    .map(c => createCategoryLink(c, activeCategory === c.toLowerCase()))
+    .join('');
+}
+
+function createCategoryLink(category, isActive) {
+    return `<a href="?category=${category.toLowerCase()}" ${isActive ? 'class="active"' : ''}>`
+        + `${capitalizeFirstLetter(category.toLowerCase())}</a>\n`;
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 // app.get('/app/123', (req, res) => {
 //     res.statusCode = 200;
