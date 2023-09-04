@@ -9,6 +9,7 @@ const express = require('express');
 const app = express();
 
 const db = require('./db.js');
+const dataTabTitles = require('./dataTab.js');
 
 app.use(express.static(path.join(__dirname, '../../public')));
 app.set('views', path.join(__dirname, '/../../public/views/'));
@@ -23,7 +24,7 @@ app.get("/app", (req, res) => {
     let dataTabs = "";
 
     const category = req.query.category || 'war';
-    const sql = "SELECT name, html_data, height, width FROM data_tab where category = ?";
+    const sql = "SELECT id, html_data, height, width FROM data_tab where category = ?";
 
     db.connection.query(sql, [category], function (err, result) {
         let log = '';
@@ -46,7 +47,7 @@ app.get("/app", (req, res) => {
 });
 
 function wrapHtmlData(dataTab){
-    let dataTabTitle = `${dataTab['name']}`;
+    let dataTabTitle = dataTabTitles.getTitleById(dataTab['id']);
     return `<div class="dataTab" style="${dataTab['height'] ? 'height: ' + dataTab['height'] +'px; ' : ''} `
         + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; ': ''}"><div class="dataTabTitle">${dataTabTitle}</div>${dataTab['html_data']}</div>`;
 }
