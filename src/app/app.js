@@ -23,7 +23,7 @@ app.get("/app", (req, res) => {
     let dataTabs = "";
 
     const category = req.query.category || 'war';
-    const sql = "SELECT html_data, height, width FROM data_tab where category = ?";
+    const sql = "SELECT name, html_data, height, width FROM data_tab where category = ?";
 
     db.connection.query(sql, [category], function (err, result) {
         if (err) {
@@ -44,8 +44,9 @@ app.get("/app", (req, res) => {
 });
 
 function wrapHtmlData(dataTab){
+    let dataTabTitle = `${dataTab['name']}`;
     return `<div class="dataTab" style="${dataTab['height'] ? 'height: ' + dataTab['height'] +'px; ' : ''} `
-        + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; ': ''}">${dataTab['html_data']}</div>`;
+        + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; ': ''}"><div class="dataTabTitle">${dataTabTitle}</div>${dataTab['html_data']}</div>`;
 }
 
 const categories = ["FOOTBALL",

@@ -25,18 +25,23 @@ body {
 }
 
 #dataPanel {
-    background-color: #e9f8d8;
+    background: #e9f8d8;
     padding-left: 120px;
 }
 
 #adminPanel {
     height: 50px;
-    background-color: #556B2F;
+    background: #556B2F;
     color: #e9f8d8;
 }
 
+.dataTabTitle {
+    font-family: "Copperplate";
+    color: #604439;
+    background: #e6e5ca;
+}
 .dataTab {
-    background-color: #e9f8d8;
+    background: #e9f8d8;
     padding: 10px;
     float: left;
 }
@@ -48,7 +53,7 @@ iframe {
 
 .tabDiv {
     border: 2px outset #556B2F;
-    background-color: #e9f8d8;
+    background: #e9f8d8;
     text-align: center;
     height: 800px;
     width: 400px;
@@ -69,16 +74,16 @@ iframe {
     float: left;
 }
 .categories a {
-    background-color: #e9f8d8;
+    background: #e9f8d8;
     color: black;
     display: block;
     padding: 12px;
     text-decoration: none;
 }
 .categories a:hover {
-    background-color: #96ab6d;
+    background: #96ab6d;
 }
 .categories a.active {
-    background-color: #556B2F;
+    background: #556B2F;
     color: white;
 }
