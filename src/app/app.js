@@ -26,19 +26,21 @@ app.get("/app", (req, res) => {
     const sql = "SELECT name, html_data, height, width FROM data_tab where category = ?";
 
     db.connection.query(sql, [category], function (err, result) {
+        let log = '';
         if (err) {
             throw err;
         }
 
         let dataTab = Object.values(JSON.parse(JSON.stringify(result)));
-
+        log += JSON.stringify(result);
         dataTab.forEach((v) => {
             dataTabs += wrapHtmlData(v);
         });
 
         res.render('pages/index.ejs', {
             categories: createCategoriesMenuDiv(category),
-            dataTabs: dataTabs
+            dataTabs: dataTabs,
+            log: log,
         });
     });
 });
