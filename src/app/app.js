@@ -33,8 +33,7 @@ app.get("/", (req, res) => {
         let dataTab = Object.values(JSON.parse(JSON.stringify(result)));
 
         dataTab.forEach((v) => {
-            // dataTabs += wrapHtmlData(v);
-            dataTabs += v['html_data'];
+            dataTabs += wrapHtmlData(v);
         });
 
         res.render('pages/index.ejs', {
@@ -45,8 +44,8 @@ app.get("/", (req, res) => {
 });
 
 function wrapHtmlData(dataTab){
-    return `<div ${dataTab['height'] ? 'height = "' + dataTab['height'] + '"': ''} `
-        + `${dataTab['width'] ? 'width = "' + dataTab['width'] + '"': ''}>${dataTab['html_data']}</div>`
+    return `<div class="dataTab" style="${dataTab['height'] ? 'height: ' + dataTab['height'] +'px; ' : ''} `
+        + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; ': ''}">${dataTab['html_data']}</div>`;
 }
 
 const categories = ["FOOTBALL",
