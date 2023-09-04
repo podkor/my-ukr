@@ -19,7 +19,7 @@ http.createServer(app)
     console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-app.get("/", (req, res) => {
+app.get("/app", (req, res) => {
     let dataTabs = "";
 
     const category = req.query.category || 'war';
