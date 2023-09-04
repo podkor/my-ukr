@@ -1,6 +1,7 @@
 const dataTabTitles = new Map([
     [1, "Таблиця Коефіцієнтів UEFA"],
     [2, "Українська Премєр Ліга Таблиця"],
+    [3, "Grandma's Smuzi (Кавера Українською)"],
     [4, "Deep State Map"],
     [5, "Курс Долара до Гривні"],
     [6, "Live результати"],
@@ -11,7 +12,8 @@ const dataTabTitles = new Map([
     [12, "Donate Повернись Живим"],
     [13, "YouTube Телебачення Торонто"],
     [14, "YouTube Стерненко"],
-    [15, "Youtube Бутусов"]
+    [15, "Youtube Бутусов"],
+    [16, "Kalush"],
 ]);
 
 function getTitleById(id){
