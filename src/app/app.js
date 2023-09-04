@@ -19,20 +19,21 @@ http.createServer(app)
     console.log(`Server running at http://${hostname}:${port}/`);
 });
 
-app.get("/app", (req, res) => {
+app.get("/", (req, res) => {
     let dataTabs = "";
 
     const category = req.query.category || 'war';
-    const sql = "SELECT html_data FROM data_tab where category = ?";
+    const sql = "SELECT html_data, height, width FROM data_tab where category = ?";
 
     db.connection.query(sql, [category], function (err, result) {
         if (err) {
             throw err;
         }
 
-        let htmlData = Object.values(JSON.parse(JSON.stringify(result)));
+        let dataTab = Object.values(JSON.parse(JSON.stringify(result)));
 
-        htmlData.forEach((v) => {
+        dataTab.forEach((v) => {
+            // dataTabs += wrapHtmlData(v);
             dataTabs += v['html_data'];
         });
 
@@ -41,8 +42,12 @@ app.get("/app", (req, res) => {
             dataTabs: dataTabs
         });
     });
-
 });
+
+function wrapHtmlData(dataTab){
+    return `<div ${dataTab['height'] ? 'height = "' + dataTab['height'] + '"': ''} `
+        + `${dataTab['width'] ? 'width = "' + dataTab['width'] + '"': ''}>${dataTab['html_data']}</div>`
+}
 
 const categories = ["FOOTBALL",
     "WAR",
