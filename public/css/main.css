@@ -1,9 +1,4 @@
-#contentDiv {
-    background: #e6e5ca;
-    width: 1280px;
-    margin: 0 auto;
-}
-
+/* HEADER */
 #header {
     height: 130px;
 }
@@ -26,57 +21,27 @@
     text-shadow: 0 0 0 #000;
 }
 
-.dataPanel {
-    width: 880px;
-    float: left;
-}
-.activeContent {
-}
-
-#adminPanel {
-    height: 50px;
-    background: #556B2F;
-    color: #e6e5ca;
-}
-
-.dataTabTitle {
-    font-family: "Copperplate";
-    font-size: 25px;
-    color: #604439;
+#contentDiv {
     background: #e6e5ca;
-    height: 30px;
-}
-/*.dataTab {*/
-/*    background: #e6e5ca;*/
-/*}*/
-
-iframe {
-    width:100%;
-    height:100%;
+    width: 1280px;
+    margin: 0 auto;
 }
 
-.tabDiv {
-    border: 2px outset #604439;
-    background: #e6e5ca;
-    text-align: center;
-    height: 800px;
-    width: 400px;
-    font-size: 12px;
-    overflow-y:auto;
-    float: contour;
+.content {
+    display: flex;
+    justify-content: flex-start;
 }
-#ukrainePremiereLiagueTable {
-    font-size: 16px;
-}
-#liveMatch {
-    height: 480px;
-    width: 700px;
+
+/* LEFT SECTION */
+.leftSection {
+    background: #e9f8d8;
+    width: 200px;
+    min-height: 780px;
 }
 
 .tabsMenu {
     background: #e9f8d8;
     width: 200px;
-    float: left;
     text-align: left;
     font-family: "Copperplate";
 }
@@ -92,6 +57,65 @@ iframe {
 .tabsMenu a.active {
     background: #556B2F;
     color: white;
+}
+
+/* CENTRAL SECTION */
+.centralSection {
+    background: #e6e5ca;
+    width: 880px;
+    min-height: 780px;
+}
+
+.dataPanel {
+    width: 840px;
+    margin: 20px;
+}
+
+.dataTab {
+    margin: 0;
+}
+
+#adminPanel {
+    height: 50px;
+    background: #556B2F;
+    color: #e6e5ca;
+}
+
+.dataTabTitle {
+    font-family: "Copperplate";
+    font-size: 25px;
+    color: #604439;
+    background: #e6e5ca;
+    height: 30px;
+}
+
+iframe {
+    width:100%;
+    height:100%;
+}
+
+.tabDiv {
+    border: 2px outset #604439;
+    background: #e6e5ca;
+    text-align: center;
+    height: 800px;
+    width: 400px;
+    font-size: 12px;
+    overflow-y:auto;
+}
+#ukrainePremiereLiagueTable {
+    font-size: 16px;
+}
+#liveMatch {
+    height: 480px;
+    width: 700px;
+}
+
+/* RIGHT SECTION */
+.rightSection {
+    background: #e9f8d8;
+    width: 200px;
+    min-height: 780px;
 }
 
 .categories {
@@ -113,4 +137,8 @@ iframe {
 .categories a.active {
     background: #556B2F;
     color: white;
+}
+
+.footer {
+    float: bottom;
 }

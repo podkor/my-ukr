@@ -4,24 +4,32 @@
     <%- include('../fragments/head'); %>
 </head>
 <body>
-    <div id="contentDiv">
-        <header>
-            <%- include('../fragments/header'); %>
-        </header>
+<div id="contentDiv">
+    <%- include('../fragments/header'); %>
 
-        <div class="tabsMenu">
-            <%- tabsMenu %>
+    <div class="wrapper content">
+        <div class="box leftSection">
+            <div class="tabsMenu">
+                <%- tabsMenu %>
+            </div>
+            <div class="footer">
+            </div>
         </div>
 
-        <div class="dataPanel">
-            <div class="activeContent">
+        <div class="box centralSection">
+            <div class="dataPanel">
                 <%- dataTabs %>
             </div>
         </div>
 
-        <div class="categories">
-            <%- categories %>
+        <div class="box rightSection">
+            <div class="categories">
+                <%- categories %>
+            </div>
         </div>
     </div>
+
+    <%- include('../fragments/footer'); %>
+</div>
 </body>
 </html>

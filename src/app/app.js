@@ -31,7 +31,6 @@ app.get("/app", (req, res) => {
     const sql = `SELECT id, html_data, height, width FROM data_tab where category = ${categorySelect}`;
 
     db.connection.query(sql, [category], function (err, result) {
-        let log = '';
         if (err) {
             throw err;
         }
@@ -41,7 +40,6 @@ app.get("/app", (req, res) => {
         let activeId = tabId ? tabId : tabIds[0];
 
         let activeTab = dataTab.filter(d => d['id'] == activeId);
-        log += JSON.stringify(result);
 
         res.render('pages/index', {
             categories: createCategoriesMenuDiv(category),
@@ -86,26 +84,24 @@ const categories = ["FOOTBALL",
 
 function createTabsMenuDiv(tabIds, activeTabId) {
     return tabIds
-    .map(id => createTabLink(id, dataTabTitles.getTitleById(id).toLowerCase(),
+    .map(id => createTabLink(id, dataTabTitles.getTitleById(id),
         id == activeTabId))
     .join('');
 }
 
 function createCategoriesMenuDiv(activeCategory) {
     return categories
-    .map(c => createCategoryLink(c, activeCategory === c.toLowerCase()))
+    .map(c => createCategoryLink(c.toLowerCase(), activeCategory === c.toLowerCase()))
     .join('');
 }
 
 function createTabLink(id, name, isActive) {
-    return `<a href="?tabId=${id}" ${isActive ? 'class="active"' : ''}>`
-        + `${capitalizeFirstLetter(name.toLowerCase())}</a>\n`;
+    return `<a href="?tabId=${id}" ${isActive ? 'class="active"' : ''}>${name}</a>\n`;
 }
 
 function createCategoryLink(category, isActive) {
-    return `<a href="?category=${category.toLowerCase()}" ${isActive
-            ? 'class="active"' : ''}>`
-        + `${capitalizeFirstLetter(category.toLowerCase())}</a>\n`;
+    return `<a href="?category=${category}" ${isActive ? 'class="active"' : ''}>`
+        + `${capitalizeFirstLetter(category)}</a>\n`;
 }
 
 function capitalizeFirstLetter(string) {
