@@ -43,8 +43,7 @@ app.get("/app", (req, res) => {
 
         res.render('pages/index', {
             categories: createCategoriesMenuDiv(category),
-            dataTabs: dataTabs,
-            log: log,
+            dataTabs: dataTabs
         });
     });
 });
@@ -102,8 +101,9 @@ function capitalizeFirstLetter(string) {
 //     // db.query() code goes here
 // })
 
-// app.get('/app/123', (req, res) => {
-//     res.statusCode = 200;
-//     res.setHeader('Content-Type', 'text/plain');
-//     res.end('Hello World');
-// });
+app.get('/app/test', (req, res) => {
+    let test = "<div class='myTestDiv' >HELLO</div>";
+    res.render('pages/test', {
+        test: test
+    });
+});
