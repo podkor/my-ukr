@@ -4,17 +4,24 @@
     <%- include('../fragments/head'); %>
 </head>
 <body>
-    <header>
-        <%- include('../fragments/header'); %>
-    </header>
+    <div id="contentDiv">
+        <header>
+            <%- include('../fragments/header'); %>
+        </header>
 
-<div class="categories">
-    <%- categories %>
-</div>
+        <div class="tabsMenu">
+            <%- tabsMenu %>
+        </div>
 
-<div id="dataPanel">
-    <%- dataTabs %>
-</div>
+        <div class="dataPanel">
+            <div class="activeContent">
+                <%- dataTabs %>
+            </div>
+        </div>
 
+        <div class="categories">
+            <%- categories %>
+        </div>
+    </div>
 </body>
 </html>
