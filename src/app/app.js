@@ -15,6 +15,9 @@ app.use(express.static(path.join(__dirname, '../../public')));
 app.set('views', path.join(__dirname, '/../../public/views/'));
 app.set('view engine', 'ejs');
 
+app.use(express.json());
+app.use("/app/auth", require("./auth/route"))
+
 http.createServer(app)
 .listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
@@ -38,7 +41,7 @@ app.get("/app", (req, res) => {
             dataTabs += wrapHtmlData(v);
         });
 
-        res.render('pages/index.ejs', {
+        res.render('pages/index', {
             categories: createCategoriesMenuDiv(category),
             dataTabs: dataTabs,
             log: log,
@@ -55,7 +58,7 @@ function wrapHtmlData(dataTab){
 const categories = ["FOOTBALL",
     "WAR",
     "UKRAINE",
-    "HISTORY",
+    "WEATHER",
     "NEWS",
     "MUSIC",
     "FINANCE"];
@@ -86,6 +89,18 @@ function createCategoryLink(category, isActive) {
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// app.get('/app/login', (req, res) => {
+//     res.render('pages/login', {
+//         categories: createCategoriesMenuDiv('war')
+//     });
+// });
+
+// app.post("/app/login", (req, res) => {
+//     // const { username, password } = req.body
+//
+//     // db.query() code goes here
+// })
 
 // app.get('/app/123', (req, res) => {
 //     res.statusCode = 200;
