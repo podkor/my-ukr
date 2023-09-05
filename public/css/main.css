@@ -139,6 +139,11 @@ iframe {
     color: white;
 }
 
-.footer {
-    float: bottom;
+#footer {
+    background: black;
+    color: red;
+    font-family: "Copperplate";
+    /*size: 30px;*/
+    padding: 30px;
+    text-align: center;
 }
