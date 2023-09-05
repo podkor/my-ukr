@@ -8,12 +8,12 @@ const dataTabTitles = new Map([
     [7, "Мапа Повітряних тривог"],
     [8, "Втрати русні"],
     [9, "Wikipedia Україна"],
+    [10, "Kalush"],
     [11, "Donate Фонд Притули"],
     [12, "Donate Повернись Живим"],
     [13, "YouTube Телебачення Торонто"],
     [14, "YouTube Стерненко"],
-    [15, "Youtube Бутусов"],
-    [10, "Kalush"],
+    [15, "Youtube Бутусов"]
 ]);
 
 function getTitleById(id){
