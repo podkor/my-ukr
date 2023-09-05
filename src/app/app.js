@@ -24,10 +24,11 @@ http.createServer(app)
 });
 
 app.get("/app", (req, res) => {
-    let dataTabs = "";
+    let tabId = req.query.tabId
 
     const category = req.query.category || 'war';
-    const sql = "SELECT id, html_data, height, width FROM data_tab where category = ?";
+    let categorySelect = tabId ? "(select category from data_tab where id=" + tabId + ")" : `"${category}"`;
+    const sql = `SELECT id, html_data, height, width FROM data_tab where category = ${categorySelect}`;
 
     db.connection.query(sql, [category], function (err, result) {
         let log = '';
@@ -36,22 +37,31 @@ app.get("/app", (req, res) => {
         }
 
         let dataTab = Object.values(JSON.parse(JSON.stringify(result)));
+        let tabIds = dataTab.map(t => t['id']);
+        let activeId = tabId ? tabId : tabIds[0];
+
+        let activeTab = dataTab.filter(d => d['id'] == activeId);
         log += JSON.stringify(result);
-        dataTab.forEach((v) => {
-            dataTabs += wrapHtmlData(v);
-        });
 
         res.render('pages/index', {
             categories: createCategoriesMenuDiv(category),
-            dataTabs: dataTabs
+            tabsMenu: createTabsMenuDiv(tabIds, activeId),
+            dataTabs: wrapHtmlData(activeTab)
         });
     });
 });
 
-function wrapHtmlData(dataTab){
-    let dataTabTitle = dataTabTitles.getTitleById(dataTab['id']);
-    return `<div class="dataTab" style="${dataTab['height'] ? 'height: ' + dataTab['height'] +'px; ' : ''} `
-        + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; ': ''}"><div class="dataTabTitle">${dataTabTitle}</div>${dataTab['html_data']}</div>`;
+function wrapHtmlData(dataTabs) {
+    if (dataTabs[0]) {
+        let dataTab = dataTabs[0];
+        let dataTabTitle = dataTabTitles.getTitleById(dataTab['id']);
+        return `<div class="dataTab" style="${dataTab['height'] ? 'height: '
+                + dataTab['height'] + 'px; ' : ''} `
+            + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; '
+                : ''}"><div class="dataTabTitle">${dataTabTitle}</div>${dataTab['html_data']}</div>`;
+    } else {
+        return ""
+    }
 }
 
 const categories = ["FOOTBALL",
@@ -74,14 +84,27 @@ const categories = ["FOOTBALL",
 //     });
 // }
 
+function createTabsMenuDiv(tabIds, activeTabId) {
+    return tabIds
+    .map(id => createTabLink(id, dataTabTitles.getTitleById(id).toLowerCase(),
+        id == activeTabId))
+    .join('');
+}
+
 function createCategoriesMenuDiv(activeCategory) {
     return categories
     .map(c => createCategoryLink(c, activeCategory === c.toLowerCase()))
     .join('');
 }
 
+function createTabLink(id, name, isActive) {
+    return `<a href="?tabId=${id}" ${isActive ? 'class="active"' : ''}>`
+        + `${capitalizeFirstLetter(name.toLowerCase())}</a>\n`;
+}
+
 function createCategoryLink(category, isActive) {
-    return `<a href="?category=${category.toLowerCase()}" ${isActive ? 'class="active"' : ''}>`
+    return `<a href="?category=${category.toLowerCase()}" ${isActive
+            ? 'class="active"' : ''}>`
         + `${capitalizeFirstLetter(category.toLowerCase())}</a>\n`;
 }
 

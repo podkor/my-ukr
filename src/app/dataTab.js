@@ -13,7 +13,8 @@ const dataTabTitles = new Map([
     [12, "Donate Повернись Живим"],
     [13, "YouTube Телебачення Торонто"],
     [14, "YouTube Стерненко"],
-    [15, "Youtube Бутусов"]
+    [15, "Youtube Бутусов"],
+    [16, "Погода"]
 ]);
 
 function getTitleById(id){
