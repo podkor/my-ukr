@@ -27,23 +27,25 @@ app.get("/app", (req, res) => {
     let tabId = req.query.tabId
 
     const category = req.query.category || 'war';
-    let categorySelect = tabId ? "(select category from data_tab where id=" + tabId + ")" : `"${category}"`;
-    const sql = `SELECT id, html_data, height, width FROM data_tab where category = ${categorySelect}`;
+    let categorySelect = tabId ? "(select category from data_tab where id="
+        + tabId + ")" : `"${category}"`;
+    const sql = `SELECT id, name, html_data, height, width
+                 FROM data_tab
+                 where category = ${categorySelect}`;
 
     db.connection.query(sql, [category], function (err, result) {
         if (err) {
             throw err;
         }
 
-        let dataTab = Object.values(JSON.parse(JSON.stringify(result)));
-        let tabIds = dataTab.map(t => t['id']);
-        let activeId = tabId ? tabId : tabIds[0];
+        let tabs = Object.values(JSON.parse(JSON.stringify(result)));
+        let activeId = tabId ? tabId : tabs[0]['id'];
 
-        let activeTab = dataTab.filter(d => d['id'] == activeId);
+        let activeTab = tabs.filter(d => d['id'] == activeId);
 
         res.render('pages/index', {
             categories: createCategoriesMenuDiv(category),
-            tabsMenu: createTabsMenuDiv(tabIds, activeId),
+            tabsMenu: createTabsMenuDiv(tabs, activeId),
             dataTabs: wrapHtmlData(activeTab)
         });
     });
@@ -82,25 +84,32 @@ const categories = ["FOOTBALL",
 //     });
 // }
 
-function createTabsMenuDiv(tabIds, activeTabId) {
-    return tabIds
-    .map(id => createTabLink(id, dataTabTitles.getTitleById(id),
-        id == activeTabId))
+function createTabsMenuDiv(tabs, activeTabId) {
+    return tabs
+    .map(t => createTabLink(t['id'], t['name'],
+        t['id'] == activeTabId))
     .join('');
 }
 
 function createCategoriesMenuDiv(activeCategory) {
     return categories
-    .map(c => createCategoryLink(c.toLowerCase(), activeCategory === c.toLowerCase()))
+    .map(c => createCategoryLink(c.toLowerCase(),
+        activeCategory === c.toLowerCase()))
     .join('');
 }
 
-function createTabLink(id, name, isActive) {
-    return `<a href="?tabId=${id}" ${isActive ? 'class="active"' : ''}>${name}</a>\n`;
+function createTabLink(id, tabName, isActive) {
+    let name = dataTabTitles.getTitleById(id);
+    if (!name) {
+        name = tabName;
+    }
+    return `<a href="?tabId=${id}" ${isActive ? 'class="active"'
+        : ''}>${name}</a>\n`;
 }
 
 function createCategoryLink(category, isActive) {
-    return `<a href="?category=${category}" ${isActive ? 'class="active"' : ''}>`
+    return `<a href="?category=${category}" ${isActive ? 'class="active"'
+            : ''}>`
         + `${capitalizeFirstLetter(category)}</a>\n`;
 }
 

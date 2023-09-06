@@ -3,7 +3,7 @@
     height: 130px;
 }
 #homeHeader {
-    margin: 20px;
+    margin: 20px 50px;
     float: left;
 }
 #logoHeader {
@@ -143,7 +143,6 @@ iframe {
     background: black;
     color: red;
     font-family: "Copperplate";
-    /*size: 30px;*/
     padding: 30px;
     text-align: center;
 }
