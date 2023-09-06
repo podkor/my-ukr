@@ -23,6 +23,10 @@ http.createServer(app)
     console.log(`Server running at http://${hostname}:${port}/`);
 });
 
+app.get("/", (req, res) => {
+    res.redirect("/app");
+});
+
 app.get("/app", (req, res) => {
     let tabId = req.query.tabId
 
