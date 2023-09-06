@@ -64,8 +64,8 @@ function wrapHtmlData(dataTabs) {
     }
 }
 
-const categories = ["FOOTBALL",
-    "WAR",
+const categories = ["WAR",
+    "FOOTBALL",
     "UKRAINE",
     "WEATHER",
     "NEWS",
