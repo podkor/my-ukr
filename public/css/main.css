@@ -83,12 +83,19 @@
     color: #e6e5ca;
 }
 
-.dataTabTitle {
+.dataTabHead {
     font-family: "Copperplate";
     font-size: 25px;
     color: #604439;
     background: #e6e5ca;
     height: 30px;
+}
+
+.dataTabBody {
+    overflow: hidden;
+    width:100%;
+    height:100%;
+
 }
 
 iframe {

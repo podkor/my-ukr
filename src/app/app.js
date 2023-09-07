@@ -61,8 +61,9 @@ function wrapHtmlData(dataTabs) {
         let dataTabTitle = dataTabTitles.getTitleById(dataTab['id']);
         return `<div class="dataTab" style="${dataTab['height'] ? 'height: '
                 + dataTab['height'] + 'px; ' : ''} `
-            + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; '
-                : ''}"><div class="dataTabTitle">${dataTabTitle}</div>${dataTab['html_data']}</div>`;
+            + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; ' : ''}">`
+            + `<div class="dataTabHead">${dataTabTitle}</div>`
+            + `<div class="dataTabBody">${dataTab['html_data']}</div></div>`;
     } else {
         return ""
     }
