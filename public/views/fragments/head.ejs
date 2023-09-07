@@ -2,7 +2,11 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQ0L2WVLM2"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
 
     gtag('config', 'G-CQ0L2WVLM2');
@@ -12,6 +16,37 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8253345393205115"
         crossorigin="anonymous"></script>
 
+<script>
+    window.isSubscriber = undefined;
+
+    function determineIfUserIsSubscriber() {
+        if (isSubscriber !== undefined) {
+            return isSubscriber;
+        }
+        return new Promise(resolve => {
+            setTimeout(() => {
+                // Change this to true if you want to test what subscribers would see.
+                window.isSubscriber = false;
+                resolve(window.isSubscriber);
+            }, 1000);
+        });
+    }
+
+    // Define googlefc and the controlled messaging function on the Window.
+    window.googlefc = window.googlefc || {};
+    googlefc.controlledMessagingFunction = async (message) => {
+        // Determine if the user is a subscriber asynchronously.
+        const isSubscriber = await determineIfUserIsSubscriber();
+
+        if (isSubscriber) {
+            // If the user is a subscriber, don't show any messages.
+            message.proceed(false);
+        } else {
+            // Otherwise, show messages as usual.
+            message.proceed(true);
+        }
+    }
+</script>
 <meta charset="utf-8"/>
 <title>Ukr Dashboard</title>
 
