@@ -58,11 +58,14 @@ app.get("/app", (req, res) => {
 function wrapHtmlData(dataTabs) {
     if (dataTabs[0]) {
         let dataTab = dataTabs[0];
-        let dataTabTitle = dataTabTitles.getTitleById(dataTab['id']);
+        let name = dataTabTitles.getTitleById(dataTab['id']);
+        if (!name) {
+            name = dataTab['name'];
+        }
         return `<div class="dataTab" style="${dataTab['height'] ? 'height: '
                 + dataTab['height'] + 'px; ' : ''} `
             + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; ' : ''}">`
-            + `<div class="dataTabHead">${dataTabTitle}</div>`
+            + `<div class="dataTabHead">${name}</div>`
             + `<div class="dataTabBody">${dataTab['html_data']}</div></div>`;
     } else {
         return ""
