@@ -1,39 +1,66 @@
 const db = require("../db");
-exports.login = async (req, res, next) => {
+const bcrypt = require('bcrypt');
+
+exports.postLogin = async (req, res, next) => {
     try {
-        const { username, password } = req.body
-        const sql = `SELECT username FROM user where username = ${username} and password = ${password}`;
+        const {username, password} = req.body
+        const sql = `SELECT password
+                     FROM user
+                     where username = "${username}"`;
 
         db.connection.query(sql, function (err, result) {
             if (err) {
                 throw err;
             }
-
-            let username = Object.values(JSON.parse(JSON.stringify(result)));
-            if (!username) {
-                res.status(401).json({
-                    message: "Login not successful",
-                    error: "User not found",
-                })
-            } else {
-                res.status(200).json({
-                    message: "Login successful",
-                    username,
-                })
-            }
-            //
-            // res.render('pages/index', {
-            //     categories: createCategoriesMenuDiv(category),
-            //     dataTabs: dataTabs,
-            //     log: log,
+            // bcrypt.hash(password, 12, function (err, hash) {
+            //     let p = hash;
             // });
-        });
-        // const user = await User.findOne({ username, password })
 
+            let user = Object.values(JSON.parse(JSON.stringify(result)));
+            if (user.length > 0) {
+                bcrypt.compare(password, user[0]['password'], (err, result) => {
+                    if (result) {
+                        req.session.username = username;
+                        res.redirect('/app');
+                    } else {
+                        res.render('pages/login', {
+                            message: "Login not successful!",
+                            error: "User not found",
+                            username: req.session.username
+                        });
+                    }
+                });
+            } else {
+                res.render('pages/login', {
+                    message: "Login not successful!",
+                    error: "User not found",
+                    username: req.session.username
+                });
+            }
+        });
     } catch (error) {
         res.status(400).json({
             message: "An error occurred",
             error: error.message,
+            username: req.session.username
         })
     }
 }
+
+exports.getLogin = (req, res) => {
+    res.render('pages/login', {
+        error: "",
+        message: "",
+        username: req.session.username
+    });
+};
+
+exports.getLogout = (req, res, next) => {
+    req.session.destroy(err => {
+        if (err) {
+            return next(err);
+        } else {
+            res.redirect('/app');
+        }
+    });
+};

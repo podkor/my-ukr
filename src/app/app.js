@@ -10,13 +10,27 @@ const app = express();
 
 const db = require('./db.js');
 const dataTabTitles = require('./dataTab.js');
+const bodyParser = require("body-parser");
 
 app.use(express.static(path.join(__dirname, '../../public')));
 app.set('views', path.join(__dirname, '/../../public/views/'));
 app.set('view engine', 'ejs');
 
+const session = require('express-session');
+app.use(
+    session({
+        secret: 'push_and_kril_55583',
+        saveUninitialized: true,
+        resave: true
+    })
+);
+
 app.use(express.json());
+
 app.use("/app/auth", require("./auth/route"))
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 http.createServer(app)
 .listen(port, hostname, () => {
@@ -46,11 +60,11 @@ app.get("/app", (req, res) => {
         let activeId = tabId ? tabId : tabs[0]['id'];
 
         let activeTab = tabs.filter(d => d['id'] == activeId);
-
         res.render('pages/index', {
             categories: createCategoriesMenuDiv(category),
             tabsMenu: createTabsMenuDiv(tabs, activeId),
-            dataTabs: wrapHtmlData(activeTab)
+            dataTabs: wrapHtmlData(activeTab),
+            username: req.session.username
         });
     });
 });
@@ -64,7 +78,8 @@ function wrapHtmlData(dataTabs) {
         }
         return `<div class="dataTab" style="${dataTab['height'] ? 'height: '
                 + dataTab['height'] + 'px; ' : ''} `
-            + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; ' : ''}">`
+            + `${dataTab['width'] ? 'width: ' + dataTab['width'] + 'px; '
+                : ''}">`
             + `<div class="dataTabHead">${name}</div>`
             + `<div class="dataTabBody">${dataTab['html_data']}</div></div>`;
     } else {
@@ -125,21 +140,17 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// app.get('/app/login', (req, res) => {
-//     res.render('pages/login', {
-//         categories: createCategoriesMenuDiv('war')
+// app.get('/app/test', (req, res) => {
+//     let test = "<div class='myTestDiv' >HELLO</div>";
+//     res.render('pages/test', {
+//         test: test
 //     });
 // });
 
-// app.post("/app/login", (req, res) => {
-//     // const { username, password } = req.body
-//
-//     // db.query() code goes here
-// })
-
-app.get('/app/test', (req, res) => {
-    let test = "<div class='myTestDiv' >HELLO</div>";
-    res.render('pages/test', {
-        test: test
-    });
-});
+// app.get("/login", (req, res, next) => {
+//     let sess = req.session;
+//     res.render('pages/login', {
+//         error : "",
+//         message : ""
+//     });
+// });

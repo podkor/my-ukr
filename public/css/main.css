@@ -19,19 +19,26 @@
     margin: 40px;
     color: #FEE135;
     float: right;
-    font-size: 20px;
+    font-size: 15px;
+    text-shadow: 0 0 0 #000;
+}
+#username {
+    color: #f16215;
+    font-size: 30px;
     text-shadow: 0 0 0 #000;
 }
 
 #contentDiv {
     background: #e6e5ca;
+    min-height: 780px;
     width: 1280px;
     margin: 0 auto;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+    0 10px 10px rgba(0,0,0,0.22);
 }
 
 .content {
     display: flex;
-    /*justify-content: flex-start;*/
 }
 
 /* LEFT SECTION */
@@ -153,4 +160,11 @@ iframe {
     font-family: "Copperplate";
     padding: 30px;
     text-align: center;
+}
+
+.loginForm {
+    border: 1px;
+    background: ghostwhite;
+    font-family: "Copperplate";
+    padding: 100px;
 }

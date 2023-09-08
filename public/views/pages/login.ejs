@@ -2,59 +2,53 @@
 <html>
 <head>
     <%- include('../fragments/head'); %>
+    <link rel="stylesheet" type="text/css" href="/css/login.css"/>
+
 </head>
 <body>
-<header>
-    <%- include('../fragments/header'); %>
-</header>
-<div class="container">
-
-    <div class="container">
-        <h2>Login and register form with Node.js, Express.js and MySQL</h2>
-        <h3>Login form</h3>
-        <form action="/app/auth/login" method="POST">
-            <div class="form-group mb-3">
-                <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username" name="userName">
-            </div>
-            <div class="form-group mb-3">
-                <label>Password</label>
-                <input type="password" class="form-control" placeholder="Password" name="password">
-            </div>
-            <div class="d-grid mt-3">
-                <button type="submit" class="btn btn-primary form-control">Submit</button>
-            </div>
-        </form>
+<div id="contentDiv">
+    <header>
+        <%- include('../fragments/header'); %>
+    </header>
+    <div class="container" id="container">
+        <!--                    <div class="form-container sign-up-container">-->
+        <!--                        <form action="/app/auth/login">-->
+        <!--                            <h1>Create Account</h1>-->
+        <!--                            <div class="social-container">-->
+        <!--                                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
+        <!--                                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
+        <!--                                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
+        <!--                            </div>-->
+        <!--                            <span>or use your email for registration</span>-->
+        <!--                            <input type="text" placeholder="Name" />-->
+        <!--                            <input type="email" placeholder="Email" />-->
+        <!--                            <input type="password" placeholder="Password" />-->
+        <!--                            <button>Sign Up</button>-->
+        <!--                        </form>-->
+        <!--                    </div>-->
+        <div class="form-container sign-in-container">
+            <form action="/app/auth/login" method="post">
+                <div>
+                    <h1>Sign in</h1>
+                    <% if(error) { %>
+                        <span> <%= message %> <%= error %> </span>
+                    <% } %>
+                </div>
+                <!--                            <div class="social-container">-->
+                <!--                                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
+                <!--                                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
+                <!--                                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
+                <!--                            </div>-->
+                <!--                            <span>or use your account</span>-->
+                <input type="username" placeholder="Username" name="username"/>
+                <input type="password" placeholder="Password" name="password"/>
+                <!--                            <a href="#">Forgot your password?</a>-->
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
     </div>
-<!--    <div class="row" style="margin-top:20px">-->
-<!--        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">-->
-<!--            <form action="/app/auth/login" method="post">-->
-<!--                <fieldset>-->
-<!--                    <h1>Login Form</h1>-->
 
-
-<!--                    <div class="form-group">-->
-<!--                        <input type="text" name="username" id="username" class="form-control input-lg"-->
-<!--                               placeholder="UserName" required="true" autofocus="true"/>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <input type="password" name="password" id="password" class="form-control input-lg"-->
-<!--                               placeholder="Password" required="true"/>-->
-<!--                    </div>-->
-
-<!--                    <div class="row">-->
-<!--                        <div class="col-xs-6 col-sm-6 col-md-6">-->
-<!--                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>-->
-<!--                        </div>-->
-<!--                        <div class="col-xs-6 col-sm-6 col-md-6">-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </fieldset>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-
+    <%- include('../fragments/footer'); %>
 </div>
-
 </body>
 </html>

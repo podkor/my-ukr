@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const {login} = require("./auth");
+const {getLogin, postLogin, getLogout} = require("./auth");
+const bodyParser = require('body-parser')
 
-router.route("/login").post(login);
-router.route("/login").get((req, res) => {
-    res.render('pages/login', {});
-});
+router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({extended: true}))
+
+router.route("/login").get(getLogin).post(postLogin);
+
+router.route("/logout").get(getLogout);
 
 module.exports = router;

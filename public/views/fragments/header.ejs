@@ -6,11 +6,22 @@
         </a>
     </div>
     <div id="logoHeader">Ukr Dashboard
-        <div id="logInUser">
-            <div>
-                <a href="/app/auth/login">Log in</a>
+        <% if (username) { %>
+            <div id="logInUser">
+                <div id="username">
+                    <%- username %>
+                </div>
+                <div>
+                    <a href="/app/auth/logout">Sign out</a>
+                </div>
             </div>
-        </div>
+        <% } else { %>
+            <div id="logInUser">
+                <div>
+                    <a href="/app/auth/login">Sign in</a>
+                </div>
+            </div>
+        <% } %>
     </div>
     <div style="height:5px; float: bottom; background-color: #0056B9"></div>
     <div style="height:5px; float: bottom; background-color: #FFD800"></div>
