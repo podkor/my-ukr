@@ -1,5 +1,5 @@
 const db = require("../db");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 exports.postLogin = async (req, res, next) => {
     try {
