@@ -47,7 +47,7 @@ app.get("/app", (req, res) => {
     const category = req.query.category || 'war';
     let categorySelect = tabId ? "(select category from data_tab where id="
         + tabId + ")" : `"${category}"`;
-    const sql = `SELECT id, name, html_data, height, width
+    const sql = `SELECT id, name, html_data, height, width, category
                  FROM data_tab
                  where category = ${categorySelect}`;
 
@@ -59,9 +59,9 @@ app.get("/app", (req, res) => {
         let tabs = Object.values(JSON.parse(JSON.stringify(result)));
         let activeId = tabId ? tabId : tabs[0]['id'];
 
-        let activeTab = tabs.filter(d => d['id'] == activeId);
+        let activeTab = tabs.filter(d => d['id'] == activeId)[0];
         res.render('pages/index', {
-            categories: createCategoriesMenuDiv(category),
+            categories: createCategoriesMenuDiv(activeTab['category']),
             tabsMenu: createTabsMenuDiv(tabs, activeId),
             dataTabs: wrapHtmlData(activeTab),
             username: req.session.username
@@ -69,9 +69,8 @@ app.get("/app", (req, res) => {
     });
 });
 
-function wrapHtmlData(dataTabs) {
-    if (dataTabs[0]) {
-        let dataTab = dataTabs[0];
+function wrapHtmlData(dataTab) {
+    if (dataTab) {
         let name = dataTabTitles.getTitleById(dataTab['id']);
         if (!name) {
             name = dataTab['name'];
@@ -117,7 +116,7 @@ function createTabsMenuDiv(tabs, activeTabId) {
 function createCategoriesMenuDiv(activeCategory) {
     return categories
     .map(c => createCategoryLink(c.toLowerCase(),
-        activeCategory === c.toLowerCase()))
+        activeCategory === c))
     .join('');
 }
 
