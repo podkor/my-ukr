@@ -92,7 +92,8 @@ const categories = ["WAR",
     "WEATHER",
     "NEWS",
     "MUSIC",
-    "FINANCE"];
+    "FINANCE",
+    "KIDS"];
 //
 // function getCategories(cb) {
 //     const sql = "SELECT category FROM data_tab";
