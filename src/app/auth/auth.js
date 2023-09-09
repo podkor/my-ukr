@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 exports.postLogin = async (req, res, next) => {
     try {
+        const isSignUpAction = false;
         const {username, password} = req.body
         const sql = `SELECT password
                      FROM user
@@ -12,9 +13,6 @@ exports.postLogin = async (req, res, next) => {
             if (err) {
                 throw err;
             }
-            // bcrypt.hash(password, 12, function (err, hash) {
-            //     let p = hash;
-            // });
 
             let user = Object.values(JSON.parse(JSON.stringify(result)));
             if (user.length > 0) {
@@ -24,34 +22,35 @@ exports.postLogin = async (req, res, next) => {
                         res.redirect('/app');
                     } else {
                         res.render('pages/login', {
-                            message: "Login not successful!",
-                            error: "User not found",
-                            username: req.session.username
+                            message: "Login not successful! User not found.",
+                            username: req.session.username,
+                            isSignUpAction: isSignUpAction
                         });
                     }
                 });
             } else {
                 res.render('pages/login', {
-                    message: "Login not successful!",
-                    error: "User not found",
-                    username: req.session.username
+                    message: "Login not successful! User not found.",
+                    username: req.session.username,
+                    isSignUpAction: isSignUpAction
                 });
             }
         });
     } catch (error) {
         res.status(400).json({
             message: "An error occurred",
-            error: error.message,
-            username: req.session.username
+            username: req.session.username,
+            isSignUpAction: isSignUpAction
         })
     }
 }
 
 exports.getLogin = (req, res) => {
+    const isSignUpAction = false;
     res.render('pages/login', {
-        error: "",
         message: "",
-        username: req.session.username
+        username: req.session.username,
+        isSignUpAction: isSignUpAction
     });
 };
 
@@ -64,3 +63,67 @@ exports.getLogout = (req, res, next) => {
         }
     });
 };
+
+exports.postSignUp = async (req, res, next) => {
+    try {
+        const isSignUpAction = true;
+        const {username, email, password} = req.body
+
+        if (!username || !email || !password) {
+            let missedField;
+            if (!username) {
+                missedField = "Username";
+            } else if (!email) {
+                missedField = "Email";
+            } else if (!password) {
+                missedField = "Password";
+            }
+            res.render('pages/login', {
+                message: `${missedField} is missed!`,
+                username: req.session.username,
+                isSignUpAction: isSignUpAction
+            });
+        } else {
+            const sql = `SELECT username
+                         FROM user
+                         WHERE username = "${username}"`;
+
+            db.connection.query(sql, function (err, result) {
+                if (err) {
+                    throw err;
+                }
+
+                let user = Object.values(JSON.parse(JSON.stringify(result)));
+                if (user.length > 0) {
+                    res.render('pages/login', {
+                        message: "The user with the same name already exists!",
+                        username: req.session.username,
+                        isSignUpAction: isSignUpAction
+                    });
+                } else {
+                    bcrypt.hash(password, 12, function (err, hash) {
+                        let hashedPassword = hash;
+                        let insertSql = `INSERT INTO user (username, password, email, role)
+                                         VALUES ("${username}",
+                                                 "${hashedPassword}",
+                                                 "${email}", "USER")`;
+
+                        db.connection.query(insertSql, function (err, result) {
+                            if (err) {
+                                throw err;
+                            }
+                            req.session.username = username;
+                            res.redirect('/app');
+                        });
+                    });
+                }
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            message: "An error occurred",
+            username: req.session.username,
+            isSignUpAction: isSignUpAction
+        })
+    }
+}

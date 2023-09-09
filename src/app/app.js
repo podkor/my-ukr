@@ -145,11 +145,3 @@ function capitalizeFirstLetter(string) {
 //         test: test
 //     });
 // });
-
-// app.get("/login", (req, res, next) => {
-//     let sess = req.session;
-//     res.render('pages/login', {
-//         error : "",
-//         message : ""
-//     });
-// });
