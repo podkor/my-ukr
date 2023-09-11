@@ -28,6 +28,7 @@ app.use(
 app.use(express.json());
 
 app.use("/app/auth", require("./auth/route"))
+app.use("/app/profile", require("./profile"))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))

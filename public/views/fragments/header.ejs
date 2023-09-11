@@ -8,8 +8,8 @@
     <div id="logoHeader">Ukr Dashboard
         <% if (username) { %>
             <div id="logInUser">
-                <div id="username">
-                    <%- username %>
+                <div>
+                    <a id="username" href="/app/profile"><%- username %></a>
                 </div>
                 <div>
                     <a href="/app/auth/logout">Sign out</a>

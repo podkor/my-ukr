@@ -1,0 +1,8 @@
+.profileDiv h1{
+    font-size: 50px;
+    font-family: "Copperplate";
+    color: #f16215;
+    padding-top: 100px;
+    padding-left: 100px;
+    text-shadow: 1px 1px 1px #000;
+}
