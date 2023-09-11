@@ -7,6 +7,12 @@
 <div id="contentDiv">
     <%- include('../fragments/header'); %>
 
+    <div class="box menuSection">
+        <div class="categories">
+            <%- categories %>
+        </div>
+    </div>
+
     <div class="wrapper content">
         <div class="box leftSection">
             <div class="tabsMenu">
@@ -17,12 +23,6 @@
         <div class="box centralSection">
             <div class="dataPanel">
                 <%- dataTabs %>
-            </div>
-        </div>
-
-        <div class="box rightSection">
-            <div class="categories">
-                <%- categories %>
             </div>
         </div>
     </div>

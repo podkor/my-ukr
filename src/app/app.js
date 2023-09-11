@@ -115,10 +115,10 @@ function createTabsMenuDiv(tabs, activeTabId) {
 }
 
 function createCategoriesMenuDiv(activeCategory) {
-    return categories
+    return "<ul>" + categories
     .map(c => createCategoryLink(c.toLowerCase(),
         activeCategory === c))
-    .join('');
+    .join('') + "</ul>";
 }
 
 function createTabLink(id, tabName, isActive) {
@@ -127,13 +127,12 @@ function createTabLink(id, tabName, isActive) {
         name = tabName;
     }
     return `<a href="?tabId=${id}" ${isActive ? 'class="active"'
-        : ''}>${name}</a>\n`;
+        : ''}>${name}</a></li>\n`;
 }
 
 function createCategoryLink(category, isActive) {
-    return `<a href="?category=${category}" ${isActive ? 'class="active"'
-            : ''}>`
-        + `${capitalizeFirstLetter(category)}</a>\n`;
+    return `<li ${isActive ? 'class="active"' : ''}>`
+        + `<a href="?category=${category}">${capitalizeFirstLetter(category)}</a></li>\n`;
 }
 
 function capitalizeFirstLetter(string) {
